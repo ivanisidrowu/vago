@@ -1,8 +1,6 @@
 package tw.invictus.vago
 
 import org.junit.Test
-import tw.invictus.sweettester.AudioRespVo
-import tw.invictus.sweettester.VagoAudioRespVoKt
 import tw.invictus.vagolib.Vago
 import tw.invictus.vagolib.isString
 

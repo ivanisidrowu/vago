@@ -1,7 +1,6 @@
 package tw.invictus.vago
 
 import org.junit.Test
-import tw.invictus.sweettester.AudioBean
 import tw.invictus.vagolib.Vago
 
 /**

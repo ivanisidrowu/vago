@@ -34,3 +34,7 @@ fun <T : Any> Class<T>.isChar(): Boolean {
 fun <T : Any> Class<T>.isShort(): Boolean {
     return this == Short::class.javaPrimitiveType || this == Short::class.java || this == Short::class.javaObjectType
 }
+
+fun <T : Any> Class<T>.isList(): Boolean {
+    return this == List::class.javaPrimitiveType || this == List::class.java || this == List::class.javaObjectType
+}

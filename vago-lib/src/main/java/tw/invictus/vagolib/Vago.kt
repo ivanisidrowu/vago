@@ -170,6 +170,8 @@ object Vago {
                 result = SHORT
             clazz.isEnum ->
                 result = clazz.enumConstants[0]
+            clazz.isList() ->
+                result = listOf(clazz.componentType)
             else -> {
                 VagoLog.w("${clazz.canonicalName} is not in default values.")
             }

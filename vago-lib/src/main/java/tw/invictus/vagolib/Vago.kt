@@ -124,7 +124,7 @@ object Vago {
                 }
     }
 
-    private fun createInstance(kClass: KClass<*>, customization: Customization?): Any? {
+    fun createInstance(kClass: KClass<*>, customization: Customization?): Any? {
         val argList = arrayListOf<Any>()
         val constructor = kClass.primaryConstructor?.javaConstructor
         kClass.primaryConstructor?.parameters?.map {

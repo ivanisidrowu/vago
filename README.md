@@ -3,11 +3,15 @@
 [![Vago](https://jitpack.io/v/ivanisidrowu/vago.svg)](https://jitpack.io/#ivanisidrowu/vago)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+Get bored with writing tedious and dull model tests?
+
 Vago helps you write tests based on POJOs and supports test generation for POJOs transformations.
 
 * Avoid writing model testing boilerplates
 * Writing tests of POJOs faster
 * Test object transformation with simple implementation and annotations
+
+[Click for examples!](https://github.com/ivanisidrowu/vago/tree/master/app/src/test/java/tw/invictus/vago)
 
 ## Test General POJOs or Beans
 
@@ -26,6 +30,10 @@ Vago.testClass(AudioBean::class, object: Vago.VagoCustomization() {
             }
         })
 ```
+### Get Instance directly
+```kotlin
+val bean = Vago.createInstance(AudioBean::class, yourCustomization)
+```
 ## Vago Annotations
 Vago has annotations to help you test object transformation. 
 
@@ -33,7 +41,7 @@ Vago has annotations to help you test object transformation.
 It marks the method which can be tested for object transformation.
 
 ### @VagoMapping
-It establishes attribute name and type mapping for testing transformation. It's useful to map those attributes which have different names and types. Then Vago will generate testing code for you. You can use generated code to test your methods. The exmple below shows you how to use Vago. In the example, AudioRespVo has attribute "childId". It also has "toAudio" function to do the object transformation. However, to test the transformaiton can be really boring and troublesome. As you can see the "childId" attribute is transformed to "chId" in AudioBean. Also, the type tranforms from String to Long. ```@VagoMapping``` can help them mapping names and type conversion.
+It establishes attribute name and type mapping for testing transformation. It's useful to map those attributes which have different names and types. Then Vago will generate testing code for you. You can use generated code to test your methods. The exmple below shows you how to use Vago. In the example, ```AudioRespVo``` has attribute ```childId```. It also has ```toAudio()``` function to do the object transformation. However, to test the transformaiton can be really boring and troublesome. As you can see the ```childId``` attribute is transformed to ```chId``` in AudioBean. Also, the type tranforms from String to Long. ```@VagoMapping``` can help them mapping names and type conversion.
 
 ### Example
 For instance, you have a value object like this one.
@@ -67,8 +75,8 @@ data class AudioBean(var id: Long, var type: Short, var title: String,
                      var mediaUrl: String, var coverUrl: String, var chId: Long)
 ```
 
-After add annotation to the methods, we need to "rebuild" project to generate code for testing tranformation.
-Then use the generated class to test it in unit tests. In this case, the generated class named "VagoAudioRespVoKt".
+After add annotation to the methods, we need to **"REBUILD"** project to generate code for testing tranformation.
+Then use the generated class to test it in unit tests. In this case, the generated class named ```VagoAudioRespVoKt```.
 
 ```kotlin
 @Test
@@ -86,7 +94,7 @@ fun testVoToBean() {
 ```
 
 ## Customization
-This is a class that defines your own customization for testing classes. Customization can be put as parameter into Vago.testClass() or any Vago generated classes.
+This is a class that defines your own customization for testing classes. ```Customization``` can be put as parameter into ```Vago.testClass()``` or any Vago generated classes.
 
 ```kotlin
 /*
@@ -125,7 +133,7 @@ VagoAudioRespVoKt.testToAudio(object: Vago.VagoCustomization() {
 ```
 
 ## Download
-Add this repo to the root build.gradle file.
+Add this repo to the root ```build.gradle``` file.
 ```gradle
 allprojects {
   repositories {
@@ -134,7 +142,7 @@ allprojects {
   }
 }
 ```
-Then add this dependency to app's build.gradle file.
+Then add this dependency to app's ```build.gradle``` file.
 ```gradle
 dependencies {
   compile 'com.github.ivanisidrowu:vago:v1.0'

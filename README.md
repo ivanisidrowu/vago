@@ -145,7 +145,7 @@ allprojects {
 Then add this dependency to app's ```build.gradle``` file.
 ```gradle
 dependencies {
-  compile 'com.github.ivanisidrowu:vago:v1.0'
+  compile 'com.github.ivanisidrowu:vago:v1.0.2'
 }
 ```
 

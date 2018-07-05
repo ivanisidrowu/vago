@@ -28,7 +28,7 @@ object Vago {
 
     private const val TRANS_PARAMS_SIZE = 1
 
-    fun testClass(kClass: KClass<*>, customization: Customization?) {
+    fun testClass(kClass: KClass<*>, customization: Customization? = null) {
         val props = Introspector.getBeanInfo(kClass.java).propertyDescriptors
 
         nextProp@ for (prop in props) {
@@ -63,7 +63,7 @@ object Vago {
         }
     }
 
-    fun testTransformation(className: String, methodName: String, returnClassPath: String, packageName: String, customization: Customization?) {
+    fun testTransformation(className: String, methodName: String, returnClassPath: String, packageName: String, customization: Customization? = null) {
         val staticJavaClazz = Class.forName("$packageName.$className")
         val returnClazz = Class.forName(returnClassPath)
         val clazz = getClassFromFirstMethodParameter(staticJavaClazz, methodName)
@@ -124,7 +124,7 @@ object Vago {
                 }
     }
 
-    fun createInstance(kClass: KClass<*>, customization: Customization?): Any? {
+    fun createInstance(kClass: KClass<*>, customization: Customization? = null): Any? {
         val argList = arrayListOf<Any>()
         val constructor = kClass.primaryConstructor?.javaConstructor
         kClass.primaryConstructor?.parameters?.map {

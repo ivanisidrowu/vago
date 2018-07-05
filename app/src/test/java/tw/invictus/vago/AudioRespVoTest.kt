@@ -10,7 +10,7 @@ import tw.invictus.vagolib.isString
 class AudioRespVoTest {
     @Test
     fun testVo() {
-        Vago.testClass(AudioRespVo::class, null)
+        Vago.testClass(AudioRespVo::class)
     }
     @Test
     fun testVoToBean() {

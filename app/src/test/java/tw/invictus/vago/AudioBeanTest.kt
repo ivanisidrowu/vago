@@ -9,6 +9,6 @@ import tw.invictus.vagolib.Vago
 class AudioBeanTest {
     @Test
     fun testAudioBean() {
-        Vago.testClass(AudioBean::class, null)
+        Vago.testClass(AudioBean::class)
     }
 }

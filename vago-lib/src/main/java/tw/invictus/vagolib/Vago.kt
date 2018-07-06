@@ -128,7 +128,9 @@ object Vago {
         val argList = arrayListOf<Any>()
         val constructor = kClass.primaryConstructor?.javaConstructor
         kClass.primaryConstructor?.parameters?.map {
-            getClassDefaultValue(it.type.jvmErasure.java, customization)?.let { argList.add(it) }
+            val value = customization?.getDefaultValueForSpecificAttribute(it.name!!)
+                    ?: getClassDefaultValue(it.type.jvmErasure.java, customization)
+            value?.let { argList.add(it) }
         }
         val array = argList.toArray()
         return constructor?.newInstance(*array)

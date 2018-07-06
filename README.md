@@ -1,6 +1,7 @@
 # Vago
 
 [![Vago](https://jitpack.io/v/ivanisidrowu/vago.svg)](https://jitpack.io/#ivanisidrowu/vago)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Vago-green.svg?style=flat)](https://android-arsenal.com/details/1/7015)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Get bored with writing tedious and dull model tests?
@@ -17,7 +18,7 @@ Vago helps you write tests based on POJOs and supports test generation for POJOs
 
 ### Auto test without customization
 ```kotlin
-Vago.testClass(AudioBean::class, null)
+Vago.testClass(AudioBean::class)
 ```
 ### Auto test with customization
 ```kotlin
@@ -32,6 +33,9 @@ Vago.testClass(AudioBean::class, object: Vago.VagoCustomization() {
 ```
 ### Get Instance directly
 ```kotlin
+// without customization
+val bean = Vago.createInstance(AudioBean::class)
+// with customization
 val bean = Vago.createInstance(AudioBean::class, yourCustomization)
 ```
 ## Vago Annotations
@@ -145,7 +149,7 @@ allprojects {
 Then add this dependency to app's ```build.gradle``` file.
 ```gradle
 dependencies {
-  compile 'com.github.ivanisidrowu:vago:v1.0.2'
+  compile 'com.github.ivanisidrowu:vago:v1.0.3'
 }
 ```
 

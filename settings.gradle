@@ -1,1 +1,1 @@
-include ':app', ':vago-lib'
+include ':app', ':vago-lib', ':vago-android'

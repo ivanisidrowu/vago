@@ -50,7 +50,7 @@ class VagoProcessor : AbstractProcessor() {
             generateFile(generator, packageName, clazzName)
         }
 
-        var parcelContents = arrayListOf<ParcelableTestContent>()
+        val parcelContents = arrayListOf<ParcelableTestContent>()
         p1?.getElementsAnnotatedWith(VagoParcel::class.java)?.forEach{
             val clazzName = it.simpleName.toString()
             val packageName = processingEnv.elementUtils.getPackageOf(it).qualifiedName.toString()
@@ -60,6 +60,8 @@ class VagoProcessor : AbstractProcessor() {
         if (parcelContents.isNotEmpty()) {
             val generator = ParcelableTestGenerator(parcelContents)
             generateFile(generator, ParcelableTestGenerator.PACKAGE_NAME, ParcelableTestGenerator.CLASS_NAME)
+        } else {
+            log?.printMessage(Diagnostic.Kind.NOTE, "@VagoParcel was not found. Skip generating VagoParcelable.")
         }
 
         return true

@@ -37,6 +37,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(path: ':vago-lib')
-    kapt project(':vago-lib')
+//    implementation project(path: ':vago-lib')
+//    kapt project(':vago-lib')
+    implementation 'com.github.ivanisidrowu:vago:70aa1acc9a'
+    kapt 'com.github.ivanisidrowu:vago:70aa1acc9a'
 }

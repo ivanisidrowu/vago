@@ -1,7 +1,10 @@
 package tw.invictus.vagolib
 
+import org.hamcrest.CoreMatchers
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
+import tw.invictus.annotation.VagoMapping
 import tw.invictus.vagolib.VagoLog.ERROR_TAG
 import java.beans.Introspector
 import java.beans.PropertyDescriptor
@@ -134,6 +137,14 @@ object Vago {
         }
         val array = argList.toArray()
         return constructor?.newInstance(*array)
+    }
+
+    fun createInstance(clazz: Class<*>, customization: Customization? = null) : Any? {
+        return createInstance(clazz.kotlin, customization)
+    }
+
+    fun assertEquals(testCondition: Boolean, groundTruth: Boolean) {
+        Assert.assertThat(testCondition, CoreMatchers.`is`(groundTruth))
     }
 
     private fun getClassFromFirstMethodParameter(clazz: Class<*>, methodName: String): Class<*>? {

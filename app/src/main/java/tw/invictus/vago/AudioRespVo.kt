@@ -1,7 +1,7 @@
 package tw.invictus.vago
 
-import tw.invictus.api.VagoMethod
-import tw.invictus.vagolib.VagoMapping
+import tw.invictus.annotation.VagoMethod
+import tw.invictus.annotation.VagoMapping
 
 
 class AudioRespVo {

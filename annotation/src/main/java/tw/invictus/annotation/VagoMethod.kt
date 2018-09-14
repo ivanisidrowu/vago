@@ -1,4 +1,4 @@
-package tw.invictus.api
+package tw.invictus.annotation
 
 /**
  * Created by ivan on 2018/6/20.

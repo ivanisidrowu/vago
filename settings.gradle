@@ -1,1 +1,1 @@
-include ':app', ':vago-lib', ':annotation'
+include ':app', ':vago-lib'

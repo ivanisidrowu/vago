@@ -7,25 +7,31 @@ import com.squareup.javapoet.TypeSpec
 import org.jetbrains.annotations.Nullable
 import tw.invictus.vagolib.VagoProcessor.Companion.VAGO_CLASS
 import tw.invictus.vagolib.VagoProcessor.Companion.VAGO_CUSTOM_PARAM
+import tw.invictus.vagolib.VagoProcessor.Companion.VAGO_TEST_METHOD_PREFIX
 import javax.lang.model.element.Modifier.*
 
 class ParcelableTestGenerator(
-        private val className: String,
-        private val packageName: String
+        private val contents: List<ParcelableTestContent>
 ): VagoGenerator {
 
-    private val parcelableName = "Parcelable"
+    companion object {
+        const val PARCEL_NAME = "Parcelable"
+        const val CLASS_NAME = VAGO_CLASS + PARCEL_NAME
+        const val PACKAGE_NAME = "tw.invictus.vago"
+    }
 
     override fun generate(): TypeSpec {
         val typeBuilder = TypeSpec
-                .classBuilder(VAGO_CLASS + className + parcelableName)
+                .classBuilder(CLASS_NAME)
                 .addModifiers(PUBLIC, FINAL)
-        typeBuilder.addMethod(generateMethod())
+        contents.forEach{
+            typeBuilder.addMethod(generateMethod(it.packageName, it.className))
+        }
 
         return typeBuilder.build()
     }
 
-    private fun generateMethod(): MethodSpec {
+    private fun generateMethod(packageName: String, className: String): MethodSpec {
         val param = ParameterSpec.builder(Vago.Customization::class.java, VAGO_CUSTOM_PARAM)
                 .addAnnotation(Nullable::class.java)
                 .build()
@@ -34,7 +40,7 @@ class ParcelableTestGenerator(
         val beanClass = ClassName.get(packageName, className)
         val vago = ClassName.get(VagoProcessor.VAGO_PACKAGE, VAGO_CLASS)
         val methodBuilder = MethodSpec
-                .methodBuilder(VagoProcessor.VAGO_TEST_METHOD_PREFIX + parcelableName)
+                .methodBuilder("$VAGO_TEST_METHOD_PREFIX$className$PARCEL_NAME")
                 .addModifiers(PUBLIC, STATIC, FINAL)
                 .addParameter(param)
                 .addCode(getMethodContent(), beanClass, beanClass, vago, beanClass, parcel, parcelName, beanClass, beanClass, vago)

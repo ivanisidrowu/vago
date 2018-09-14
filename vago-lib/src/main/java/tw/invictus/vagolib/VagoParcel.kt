@@ -1,4 +1,4 @@
-package tw.invictus.annotation
+package tw.invictus.vagolib
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

@@ -4,7 +4,6 @@ import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
-import tw.invictus.annotation.VagoMapping
 import tw.invictus.vagolib.VagoLog.ERROR_TAG
 import java.beans.Introspector
 import java.beans.PropertyDescriptor

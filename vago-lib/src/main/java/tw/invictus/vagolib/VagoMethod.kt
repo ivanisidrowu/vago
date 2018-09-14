@@ -1,4 +1,4 @@
-package tw.invictus.annotation
+package tw.invictus.vagolib
 
 /**
  * Created by ivan on 2018/6/20.

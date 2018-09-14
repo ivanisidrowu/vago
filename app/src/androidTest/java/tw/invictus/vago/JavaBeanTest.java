@@ -9,6 +9,6 @@ import org.junit.runner.RunWith;
 public class JavaBeanTest {
     @Test
     public void testBean() {
-        VagoAudioBeanParcelable.testParcelable(null);
+        VagoParcelable.testAudioBeanParcelable(null);
     }
 }

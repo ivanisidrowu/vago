@@ -39,6 +39,7 @@ class VagoProcessor : AbstractProcessor() {
 
     @Suppress("MISSING_DEPENDENCY_CLASS")
     override fun process(p0: MutableSet<out TypeElement>?, p1: RoundEnvironment?): Boolean {
+        log?.printMessage(Diagnostic.Kind.NOTE, "Running VagoProcessor...")
         p1?.getElementsAnnotatedWith(VagoMethod::class.java)?.forEach {
             val exElement = it as ExecutableElement
             val clazzName = exElement.enclosingElement.simpleName.toString()
@@ -51,7 +52,7 @@ class VagoProcessor : AbstractProcessor() {
         }
 
         val parcelContents = arrayListOf<ParcelableTestContent>()
-        p1?.getElementsAnnotatedWith(VagoParcel::class.java)?.forEach{
+        p1?.getElementsAnnotatedWith(VagoParcel::class.java)?.forEach {
             val clazzName = it.simpleName.toString()
             val packageName = processingEnv.elementUtils.getPackageOf(it).qualifiedName.toString()
 
@@ -68,6 +69,7 @@ class VagoProcessor : AbstractProcessor() {
     }
 
     private fun generateFile(generator: VagoGenerator, packageName: String, clazzName: String) {
+        log?.printMessage(Diagnostic.Kind.NOTE, "Generating... $packageName.$clazzName")
         val generatedClass = generator.generate()
         val file = JavaFile.builder(packageName, generatedClass).build()
         val filer = processingEnv.filer

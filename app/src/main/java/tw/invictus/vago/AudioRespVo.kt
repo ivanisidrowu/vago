@@ -1,8 +1,7 @@
 package tw.invictus.vago
 
-import tw.invictus.vagolib.VagoMethod
-import tw.invictus.vagolib.VagoMapping
-
+import tw.invictus.annotation.VagoMapping
+import tw.invictus.annotation.VagoMethod
 
 class AudioRespVo {
     var id: Long? = null

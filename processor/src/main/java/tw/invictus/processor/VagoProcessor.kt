@@ -1,7 +1,9 @@
-package tw.invictus.vagolib
+package tw.invictus.processor
 
 import com.google.auto.service.AutoService
 import com.squareup.javapoet.JavaFile
+import tw.invictus.annotation.VagoMethod
+import tw.invictus.annotation.VagoParcel
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.ExecutableElement
@@ -12,6 +14,7 @@ import javax.tools.Diagnostic
  * Created by ivan on 2018/6/19.
  */
 @AutoService(Processor::class)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 class VagoProcessor : AbstractProcessor() {
 
     companion object {

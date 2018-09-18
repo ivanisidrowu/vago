@@ -1,4 +1,4 @@
-package tw.invictus.vagolib
+package tw.invictus.processor
 
 import com.squareup.javapoet.TypeSpec
 

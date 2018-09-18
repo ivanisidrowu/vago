@@ -2,7 +2,7 @@ package tw.invictus.vago
 
 import android.os.Parcel
 import android.os.Parcelable
-import tw.invictus.vagolib.VagoParcel
+import tw.invictus.annotation.VagoParcel
 
 @VagoParcel
 data class AudioBean(var id: Long, var type: Short, var title: String,

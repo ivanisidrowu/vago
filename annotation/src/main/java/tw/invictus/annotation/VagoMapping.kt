@@ -1,4 +1,4 @@
-package tw.invictus.vagolib
+package tw.invictus.annotation
 
 import kotlin.reflect.KClass
 

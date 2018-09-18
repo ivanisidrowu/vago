@@ -1,0 +1,36 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':annotation')
+    implementation project(':vago-lib')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'com.squareup:javapoet:1.9.0'
+    implementation 'com.google.auto.service:auto-service:1.0-rc2'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+buildscript {
+    ext.kotlin_version = '1.2.30'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

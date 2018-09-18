@@ -1,13 +1,14 @@
-package tw.invictus.vagolib
+package tw.invictus.processor
 
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeSpec
 import org.jetbrains.annotations.Nullable
-import tw.invictus.vagolib.VagoProcessor.Companion.VAGO_CLASS
-import tw.invictus.vagolib.VagoProcessor.Companion.VAGO_CUSTOM_PARAM
-import tw.invictus.vagolib.VagoProcessor.Companion.VAGO_TEST_METHOD_PREFIX
+import tw.invictus.processor.VagoProcessor.Companion.VAGO_CLASS
+import tw.invictus.processor.VagoProcessor.Companion.VAGO_CUSTOM_PARAM
+import tw.invictus.processor.VagoProcessor.Companion.VAGO_TEST_METHOD_PREFIX
+import tw.invictus.vagolib.Vago
 import javax.lang.model.element.Modifier.*
 
 class ParcelableTestGenerator(

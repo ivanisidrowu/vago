@@ -42,7 +42,6 @@ class VagoProcessor : AbstractProcessor() {
 
     @Suppress("MISSING_DEPENDENCY_CLASS")
     override fun process(p0: MutableSet<out TypeElement>?, p1: RoundEnvironment?): Boolean {
-        log?.printMessage(Diagnostic.Kind.NOTE, "Running VagoProcessor...")
         p1?.getElementsAnnotatedWith(VagoMethod::class.java)?.forEach {
             val exElement = it as ExecutableElement
             val clazzName = exElement.enclosingElement.simpleName.toString()
@@ -64,28 +63,25 @@ class VagoProcessor : AbstractProcessor() {
         if (parcelContents.isNotEmpty()) {
             val generator = ParcelableTestGenerator(parcelContents)
             generateFile(generator, ParcelableTestGenerator.PACKAGE_NAME, ParcelableTestGenerator.CLASS_NAME)
-        } else {
-            log?.printMessage(Diagnostic.Kind.NOTE, "@VagoParcel was not found. Skip generating VagoParcelable.")
         }
 
         return true
     }
 
     private fun getPackage(element: Element): PackageElement {
-        var element = element
-        while (element.kind != ElementKind.PACKAGE) {
-            element = element.enclosingElement
+        var thisElement = element
+        while (thisElement.kind != ElementKind.PACKAGE) {
+            thisElement = thisElement.enclosingElement
         }
 
-        return element as PackageElement
+        return thisElement as PackageElement
     }
 
     private fun generateFile(generator: VagoGenerator, packageName: String, clazzName: String) {
-        log?.printMessage(Diagnostic.Kind.NOTE, "Generating... $packageName.$clazzName")
         val generatedClass = generator.generate()
         val file = JavaFile.builder(packageName, generatedClass).build()
         val filer = processingEnv.filer
-        log?.printMessage(Diagnostic.Kind.NOTE, "Tests for $clazzName were generated.")
+        log?.printMessage(Diagnostic.Kind.NOTE, "[Vago] $clazzName were generated.")
         file.writeTo(filer)
     }
 }

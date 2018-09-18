@@ -57,8 +57,8 @@ class VagoProcessor : AbstractProcessor() {
         p1?.getElementsAnnotatedWith(VagoParcel::class.java)?.forEach {
             val clazzName = it.simpleName.toString()
             val packageName = getPackage(it).qualifiedName.toString()
-
-            parcelContents.add(ParcelableTestContent(clazzName, packageName))
+            val annotation = it.getAnnotation(VagoParcel::class.java)
+            parcelContents.add(ParcelableTestContent(clazzName, packageName, annotation.parentName))
         }
         if (parcelContents.isNotEmpty()) {
             val generator = ParcelableTestGenerator(parcelContents)

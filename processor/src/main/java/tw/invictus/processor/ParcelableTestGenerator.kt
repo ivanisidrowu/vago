@@ -26,19 +26,24 @@ class ParcelableTestGenerator(
                 .classBuilder(CLASS_NAME)
                 .addModifiers(PUBLIC, FINAL)
         contents.forEach{
-            typeBuilder.addMethod(generateMethod(it.packageName, it.className))
+            typeBuilder.addMethod(generateMethod(it.packageName, it.className, it.parentName))
         }
 
         return typeBuilder.build()
     }
 
-    private fun generateMethod(packageName: String, className: String): MethodSpec {
+    private fun generateMethod(packageName: String, className: String, parentName: String): MethodSpec {
         val param = ParameterSpec.builder(Vago.Customization::class.java, VAGO_CUSTOM_PARAM)
                 .addAnnotation(Nullable::class.java)
                 .build()
         val parcelName = "Parcel"
         val parcel = ClassName.get("android.os", parcelName)
-        val beanClass = ClassName.get(packageName, className)
+
+        val beanClass = if (parentName.isEmpty()) {
+            ClassName.get(packageName, className)
+        } else {
+            ClassName.get(packageName, parentName, className)
+        }
         val vago = ClassName.get(VagoProcessor.VAGO_PACKAGE, VAGO_CLASS)
         val methodBuilder = MethodSpec
                 .methodBuilder("$VAGO_TEST_METHOD_PREFIX$className$PARCEL_NAME")

@@ -2,12 +2,12 @@ package tw.invictus.processor
 
 import com.google.auto.service.AutoService
 import com.squareup.javapoet.JavaFile
+import tw.invictus.annotation.VagoMapping
 import tw.invictus.annotation.VagoMethod
 import tw.invictus.annotation.VagoParcel
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
-import javax.lang.model.element.ExecutableElement
-import javax.lang.model.element.TypeElement
+import javax.lang.model.element.*
 import javax.tools.Diagnostic
 
 /**
@@ -37,7 +37,7 @@ class VagoProcessor : AbstractProcessor() {
     }
 
     override fun getSupportedAnnotationTypes(): Set<String> {
-        return setOf(VagoMethod::class.java.canonicalName)
+        return setOf(VagoMethod::class.java.canonicalName, VagoParcel::class.java.canonicalName)
     }
 
     @Suppress("MISSING_DEPENDENCY_CLASS")
@@ -48,7 +48,7 @@ class VagoProcessor : AbstractProcessor() {
             val clazzName = exElement.enclosingElement.simpleName.toString()
             val methodName = exElement.simpleName.toString()
             val returnClassPath = exElement.returnType.toString()
-            val packageName = processingEnv.elementUtils.getPackageOf(it).qualifiedName.toString()
+            val packageName = getPackage(it).qualifiedName.toString()
 
             val generator = MethodTestGenerator(clazzName, packageName, listOf(MethodTestContent(methodName, returnClassPath)))
             generateFile(generator, packageName, clazzName)
@@ -57,7 +57,7 @@ class VagoProcessor : AbstractProcessor() {
         val parcelContents = arrayListOf<ParcelableTestContent>()
         p1?.getElementsAnnotatedWith(VagoParcel::class.java)?.forEach {
             val clazzName = it.simpleName.toString()
-            val packageName = processingEnv.elementUtils.getPackageOf(it).qualifiedName.toString()
+            val packageName = getPackage(it).qualifiedName.toString()
 
             parcelContents.add(ParcelableTestContent(clazzName, packageName))
         }
@@ -69,6 +69,15 @@ class VagoProcessor : AbstractProcessor() {
         }
 
         return true
+    }
+
+    private fun getPackage(element: Element): PackageElement {
+        var element = element
+        while (element.kind != ElementKind.PACKAGE) {
+            element = element.enclosingElement
+        }
+
+        return element as PackageElement
     }
 
     private fun generateFile(generator: VagoGenerator, packageName: String, clazzName: String) {

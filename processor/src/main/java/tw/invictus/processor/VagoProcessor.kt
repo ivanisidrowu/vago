@@ -14,7 +14,6 @@ import javax.tools.Diagnostic
  * Created by ivan on 2018/6/19.
  */
 @AutoService(Processor::class)
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
 class VagoProcessor : AbstractProcessor() {
 
     companion object {

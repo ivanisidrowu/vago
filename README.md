@@ -6,10 +6,10 @@
 
 Get bored with writing tedious and dull model tests?
 
-Vago helps you write tests based on POJOs and supports test generation for POJOs transformations.
+Vago helps you write tests based on POJOs, POJOs transformations, and parcelable tests.
 
 * Avoid writing model testing boilerplates
-* Writing tests of POJOs faster
+* Writing tests of POJOs and Parcelables faster
 * Test object transformation with simple implementation and annotations
 
 [Click for examples!](https://github.com/ivanisidrowu/vago/tree/master/app/src/test/java/tw/invictus/vago)
@@ -31,6 +31,23 @@ Vago.testClass(AudioBean::class, object: Vago.VagoCustomization() {
             }
         })
 ```
+### Auto test for parcelables
+1. Add ```@VagoParcel``` to the parcelabe class
+```kotlin
+@VagoParcel
+data class AudioBean(var id: Long, var type: Short, var title: String,
+                     var mediaUrl: String, var coverUrl: String, var chId: Long) : Parcelable {
+            //...
+}
+```
+2. Rebuild your code
+3. Use generated class to test your parcelable class. In this example, it is ```VagoParcelable.testAudioBeanParcelable()```.
+```kotlin
+@Test
+public void testBean() {
+            VagoParcelable.testAudioBeanParcelable(customization);
+}
+```
 ### Get Instance directly
 ```kotlin
 // without customization
@@ -46,6 +63,9 @@ It marks the method which can be tested for object transformation.
 
 ### @VagoMapping
 It establishes attribute name and type mapping for testing transformation. It's useful to map those attributes which have different names and types. Then Vago will generate testing code for you. You can use generated code to test your methods. The exmple below shows you how to use Vago. In the example, ```AudioRespVo``` has attribute ```childId```. It also has ```toAudio()``` function to do the object transformation. However, to test the transformaiton can be really boring and troublesome. As you can see the ```childId``` attribute is transformed to ```chId``` in AudioBean. Also, the type tranforms from String to Long. ```@VagoMapping``` can help them mapping names and type conversion.
+
+### @VagoParcel
+It is used to mark the class which is your target class for generating parcelabe test method. If the target class is inner class, you might need to use ```parentName``` attribute in @VagoParcel to let Vago knows that this is an inner class.
 
 ### Example
 For instance, you have a value object like this one.
@@ -146,10 +166,12 @@ allprojects {
   }
 }
 ```
-Then add this dependency to app's ```build.gradle``` file.
+Then add these dependencies to app's ```build.gradle``` file.
 ```gradle
 dependencies {
-  compile 'com.github.ivanisidrowu:vago:v1.0.3'
+  implementation 'com.github.ivanisidrowu.vago:vago-lib:v1.0.4'
+  compileOnly 'com.github.ivanisidrowu.vago:annotation:v1.0.4'
+  kapt 'com.github.ivanisidrowu.vago:processor:v1.0.4'
 }
 ```
 
